@@ -18,9 +18,6 @@ export default defineConfig({
     }
   },
   server: {
-    proxy: {
-      '/api': 'http://localhost:3000'
-    },
     port: 3000,
   },
   preview: {

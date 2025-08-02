@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
-import API_CONFIG from '../config/api';
+import { getDoctorById } from '../data/doctors';
 import BookingModal from '../components/BookingModal';
 
 function BookAppointment() {
@@ -20,18 +19,16 @@ function BookAppointment() {
   const [appointmentData, setAppointmentData] = useState(null);
 
   useEffect(() => {
-    const fetchDoctor = async () => {
-      try {
-        const response = await axios.get(`${API_CONFIG.baseURL}${API_CONFIG.endpoints.doctorById(id)}`);
-        setDoctor(response.data);
-      } catch (error) {
-        console.error('Error fetching doctor:', error);
-      } finally {
+    // Simulate loading delay for better UX
+    const loadDoctor = () => {
+      setTimeout(() => {
+        const doctorData = getDoctorById(id);
+        setDoctor(doctorData);
         setLoading(false);
-      }
+      }, 300);
     };
 
-    fetchDoctor();
+    loadDoctor();
   }, [id]);
 
   const validateForm = () => {
@@ -53,16 +50,29 @@ function BookAppointment() {
     }
 
     setSubmitting(true);
-    try {
-      const response = await axios.post(`${API_CONFIG.baseURL}${API_CONFIG.endpoints.appointments}`, {
+    
+    // Simulate API call delay
+    setTimeout(() => {
+      // Generate a unique appointment ID
+      const appointmentId = Date.now().toString();
+      
+      // Store appointment in localStorage for demo purposes
+      const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+      const newAppointment = {
+        id: appointmentId,
         doctorId: id,
+        doctorName: doctor.name,
         ...formData,
-      });
+        createdAt: new Date().toISOString()
+      };
+      
+      appointments.push(newAppointment);
+      localStorage.setItem('appointments', JSON.stringify(appointments));
       
       // Set appointment data for modal
       setAppointmentData({
         ...formData,
-        appointmentId: response.data.appointment.id
+        appointmentId: appointmentId
       });
       
       // Show success modal
@@ -75,12 +85,8 @@ function BookAppointment() {
         dateTime: '',
       });
       setErrors({});
-      
-    } catch (error) {
-      setErrors({ submit: 'Failed to book appointment. Please try again.' });
-    } finally {
       setSubmitting(false);
-    }
+    }, 1000);
   };
 
   const handleChange = (e) => {

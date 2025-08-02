@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
-import API_CONFIG from '../config/api';
+import { getDoctorById } from '../data/doctors';
 
 function DoctorProfile() {
   const { id } = useParams();
@@ -9,18 +8,16 @@ function DoctorProfile() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchDoctor = async () => {
-      try {
-        const response = await axios.get(`${API_CONFIG.baseURL}${API_CONFIG.endpoints.doctorById(id)}`);
-        setDoctor(response.data);
-      } catch (error) {
-        console.error('Error fetching doctor:', error);
-      } finally {
+    // Simulate loading delay for better UX
+    const loadDoctor = () => {
+      setTimeout(() => {
+        const doctorData = getDoctorById(id);
+        setDoctor(doctorData);
         setLoading(false);
-      }
+      }, 300);
     };
 
-    fetchDoctor();
+    loadDoctor();
   }, [id]);
 
   if (loading) {
