@@ -14,4 +14,7 @@ export default defineConfig({
     },
     port: 3000,
   },
+  preview: {
+    allowedHosts: ['healthcare-appointment-2.onrender.com'],
+  },
 })
