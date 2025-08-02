@@ -1,7 +1,7 @@
-// API Configuration for Local Development
+// API Configuration for Deployed API
 const API_CONFIG = {
-  // Local development API URL
-  baseURL: 'http://localhost:5000',
+  // Deployed API URL
+  baseURL: 'https://my-backend-service-s085.onrender.com',
   
   // API endpoints
   endpoints: {

@@ -1,6 +1,6 @@
 # Healthcare Appointment Booking App
 
-A simple healthcare appointment booking application built with React and Express.js for local development.
+A healthcare appointment booking application built with React and Express.js, using a deployed API.
 
 ## Features
 
@@ -8,6 +8,18 @@ A simple healthcare appointment booking application built with React and Express
 - View doctor profiles and specializations
 - Book appointments with selected doctors
 - Responsive design with Bootstrap
+- Connected to deployed API
+
+## API Information
+
+The application is connected to a deployed API at:
+**https://my-backend-service-s085.onrender.com**
+
+API endpoints:
+- `GET /api/doctors` - Get all doctors
+- `GET /api/doctors/:id` - Get specific doctor
+- `POST /api/appointments` - Book an appointment
+- `GET /` - API health check
 
 ## Local Development Setup
 
@@ -24,43 +36,25 @@ A simple healthcare appointment booking application built with React and Express
    cd Healthcare-appointment
    ```
 
-2. **Install server dependencies**
+2. **Install client dependencies**
    ```bash
-   cd server
+   cd client
    npm install
    ```
 
-3. **Install client dependencies**
-   ```bash
-   cd ../client
-   npm install
-   ```
+### Running the Frontend
 
-### Running the Application
-
-1. **Start the API server**
-   ```bash
-   cd server
-   npm run dev
-   ```
-   The API will run on `http://localhost:5000`
-
-2. **Start the React frontend**
+1. **Start the React frontend**
    ```bash
    cd client
    npm run dev
    ```
    The frontend will run on `http://localhost:3000`
 
-3. **Open your browser**
+2. **Open your browser**
    Navigate to `http://localhost:3000` to use the application
 
-## API Endpoints
-
-- `GET /api/doctors` - Get all doctors
-- `GET /api/doctors/:id` - Get specific doctor
-- `POST /api/appointments` - Book an appointment
-- `GET /` - API health check
+The frontend will automatically connect to the deployed API at `https://my-backend-service-s085.onrender.com`.
 
 ## Project Structure
 
@@ -73,8 +67,8 @@ Healthcare-appointment/
 │   │   ├── context/       # React context
 │   │   └── config/        # API configuration
 │   └── package.json
-├── server/                 # Express.js backend
-│   ├── index.js           # Main server file
+├── server/                 # Express.js backend (for reference)
+│   ├── server.js          # Main server file
 │   └── package.json
 └── README.md
 ```
@@ -82,20 +76,20 @@ Healthcare-appointment/
 ## Technologies Used
 
 - **Frontend**: React, React Router, Axios, Bootstrap
-- **Backend**: Express.js, CORS
-- **Development**: Vite, Nodemon
+- **Backend**: Express.js, CORS (deployed on Render)
+- **Development**: Vite
 
 ## Development Scripts
-
-### Server
-- `npm run dev` - Start server with nodemon (auto-restart on changes)
-- `npm start` - Start server normally
 
 ### Client
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
 
+## API Configuration
+
+The API configuration is located in `client/src/config/api.js` and points to the deployed API. If you need to change the API URL, update the `baseURL` in this file.
+
 ## Mock Data
 
-The application uses mock data for doctors and appointments. All data is stored in memory and will reset when the server restarts. 
+The deployed API uses mock data for doctors and appointments. All data is stored in memory and will reset when the server restarts. 

@@ -1,10 +1,13 @@
 const express = require('express');
 const cors = require('cors'); 
 const app = express(); 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
-// Simple CORS for local development
-app.use(cors()); 
+// CORS configuration for deployed API
+app.use(cors({
+  origin: ['https://your-frontend-domain.vercel.app', 'http://localhost:3000'],
+  credentials: true
+})); 
 app.use(express.json());
 
 // Mock data with more doctors and avatar images
@@ -131,6 +134,7 @@ app.post('/api/appointments', (req, res) => {
 app.get('/', (req, res) => {
     res.json({ 
         message: 'Healthcare Appointment API is running!',
+        environment: process.env.NODE_ENV || 'development',
         endpoints: {
             doctors: '/api/doctors',
             doctorById: '/api/doctors/:id',
@@ -140,6 +144,7 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => { 
-    console.log(`Server running on http://localhost:${port}`); 
+    console.log(`Server running on port ${port}`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
     console.log(`API available at http://localhost:${port}/api/doctors`);
 });
