@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import API_CONFIG from '../config/api';
 import BookingModal from '../components/BookingModal';
 
 function BookAppointment() {
@@ -19,10 +20,18 @@ function BookAppointment() {
   const [appointmentData, setAppointmentData] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/doctors/${id}`).then((response) => {
-      setDoctor(response.data);
-      setLoading(false);
-    });
+    const fetchDoctor = async () => {
+      try {
+        const response = await axios.get(`${API_CONFIG.baseURL}${API_CONFIG.endpoints.doctorById(id)}`);
+        setDoctor(response.data);
+      } catch (error) {
+        console.error('Error fetching doctor:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDoctor();
   }, [id]);
 
   const validateForm = () => {
@@ -45,7 +54,7 @@ function BookAppointment() {
 
     setSubmitting(true);
     try {
-      const response = await axios.post('http://localhost:5000/api/appointments', {
+      const response = await axios.post(`${API_CONFIG.baseURL}${API_CONFIG.endpoints.appointments}`, {
         doctorId: id,
         ...formData,
       });

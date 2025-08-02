@@ -1,14 +1,10 @@
- const express = require('express');
+const express = require('express');
 const cors = require('cors'); 
 const app = express(); 
-const port = process.env.PORT || 5000;
+const port = 5000;
 
-app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-frontend-domain.vercel.app'] 
-    : ['http://localhost:3000'],
-  credentials: true
-})); 
+// Simple CORS for local development
+app.use(cors()); 
 app.use(express.json());
 
 // Mock data with more doctors and avatar images
@@ -107,6 +103,7 @@ const doctors = [
 
 const appointments = [];
 
+// API Routes
 app.get('/api/doctors', (req, res) => { 
     res.json(doctors); 
 });
@@ -130,6 +127,19 @@ app.post('/api/appointments', (req, res) => {
     res.status(201).json({ message: 'Appointment booked successfully', appointment }); 
 });
 
+// Basic route for testing
+app.get('/', (req, res) => {
+    res.json({ 
+        message: 'Healthcare Appointment API is running!',
+        endpoints: {
+            doctors: '/api/doctors',
+            doctorById: '/api/doctors/:id',
+            appointments: '/api/appointments'
+        }
+    });
+});
+
 app.listen(port, () => { 
     console.log(`Server running on http://localhost:${port}`); 
+    console.log(`API available at http://localhost:${port}/api/doctors`);
 });

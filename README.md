@@ -1,117 +1,101 @@
-# Healthcare Appointment Application
+# Healthcare Appointment Booking App
 
-A modern healthcare appointment booking system built with React and Express.
+A simple healthcare appointment booking application built with React and Express.js for local development.
 
 ## Features
 
-- Browse and search for doctors
-- View doctor profiles with availability
+- Browse available doctors
+- View doctor profiles and specializations
 - Book appointments with selected doctors
 - Responsive design with Bootstrap
 
-## Tech Stack
+## Local Development Setup
 
-- **Frontend**: React, Vite, Bootstrap
-- **Backend**: Express.js, Node.js
-- **Deployment**: Vercel (Frontend) + Railway/Render (Backend)
+### Prerequisites
 
-## Deployment Instructions
+- Node.js (version 14 or higher)
+- npm or yarn
 
-### Frontend Deployment (Vercel)
+### Installation
 
-1. **Install Vercel CLI** (optional):
+1. **Clone the repository**
    ```bash
-   npm install -g vercel
+   git clone <repository-url>
+   cd Healthcare-appointment
    ```
 
-2. **Deploy to Vercel**:
-   - Go to [vercel.com](https://vercel.com)
-   - Sign up/Login with GitHub
-   - Click "New Project"
-   - Import your GitHub repository
-   - Set the root directory to `client`
-   - Deploy
+2. **Install server dependencies**
+   ```bash
+   cd server
+   npm install
+   ```
 
-3. **Environment Variables** (if needed):
-   - Add `VITE_API_URL` with your backend URL
+3. **Install client dependencies**
+   ```bash
+   cd ../client
+   npm install
+   ```
 
-### Backend Deployment (Railway/Render)
+### Running the Application
 
-#### Option A: Railway
-1. Go to [railway.app](https://railway.app)
-2. Sign up/Login with GitHub
-3. Click "New Project" → "Deploy from GitHub repo"
-4. Select your repository
-5. Set the root directory to `server`
-6. Deploy
+1. **Start the API server**
+   ```bash
+   cd server
+   npm run dev
+   ```
+   The API will run on `http://localhost:5000`
 
-#### Option B: Render
-1. Go to [render.com](https://render.com)
-2. Sign up/Login with GitHub
-3. Click "New" → "Web Service"
-4. Connect your GitHub repository
-5. Set the root directory to `server`
-6. Set build command: `npm install`
-7. Set start command: `npm start`
-8. Deploy
+2. **Start the React frontend**
+   ```bash
+   cd client
+   npm run dev
+   ```
+   The frontend will run on `http://localhost:3000`
 
-### Environment Variables
-
-Set these in your backend deployment platform:
-
-- `NODE_ENV=production`
-- `PORT=5000` (or let the platform set it)
-
-### Update Frontend API URL
-
-After deploying the backend, update the API URL in your frontend:
-
-1. Go to your Vercel project settings
-2. Add environment variable: `VITE_API_URL=https://your-backend-url.com`
-3. Redeploy the frontend
-
-## Local Development
-
-### Frontend
-```bash
-cd client
-npm install
-npm run dev
-```
-
-### Backend
-```bash
-cd server
-npm install
-npm start
-```
-
-## Project Structure
-
-```
-├── client/          # React frontend
-│   ├── src/
-│   ├── public/
-│   └── package.json
-├── server/          # Express backend
-│   ├── index.js
-│   └── package.json
-└── README.md
-```
+3. **Open your browser**
+   Navigate to `http://localhost:3000` to use the application
 
 ## API Endpoints
 
 - `GET /api/doctors` - Get all doctors
 - `GET /api/doctors/:id` - Get specific doctor
-- `POST /api/appointments` - Book appointment
+- `POST /api/appointments` - Book an appointment
+- `GET /` - API health check
 
-## Contributing
+## Project Structure
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+```
+Healthcare-appointment/
+├── client/                 # React frontend
+│   ├── src/
+│   │   ├── components/     # React components
+│   │   ├── pages/         # Page components
+│   │   ├── context/       # React context
+│   │   └── config/        # API configuration
+│   └── package.json
+├── server/                 # Express.js backend
+│   ├── index.js           # Main server file
+│   └── package.json
+└── README.md
+```
 
-## License
+## Technologies Used
 
-MIT License 
+- **Frontend**: React, React Router, Axios, Bootstrap
+- **Backend**: Express.js, CORS
+- **Development**: Vite, Nodemon
+
+## Development Scripts
+
+### Server
+- `npm run dev` - Start server with nodemon (auto-restart on changes)
+- `npm start` - Start server normally
+
+### Client
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+
+## Mock Data
+
+The application uses mock data for doctors and appointments. All data is stored in memory and will reset when the server restarts. 
